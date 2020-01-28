@@ -1,0 +1,3 @@
+List of finished programs in this folder
+
+1. PrettyPass.py - Python function which hides user input for password fields, then returns it sha224 encoded.
