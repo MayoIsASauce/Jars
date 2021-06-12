@@ -21,7 +21,7 @@ def passField(text, opt='0'):
             if not storage:
                 continue
             else:
-                if opt == '1':
+                if opt == 1:
                     print(text + e, flush=True)
                 break
         elif key == b' ':
@@ -59,3 +59,6 @@ def passField(text, opt='0'):
     
 # Written by MayoIsASauce on github, uploaded 1/28/20
 # Feel free to incorporate this into your projects 
+
+password = passField("password: ", 1)
+print(password)
