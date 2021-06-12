@@ -1,7 +1,7 @@
 import msvcrt
 import hashlib
 
-def passField(text, opt='0'):
+def passField(text:str, opt: int=0)->str:
     """
     Creates a secure password field with astricks, and returns the input sha224 hashed.\n
     =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n 
