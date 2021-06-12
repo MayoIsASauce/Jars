@@ -10,6 +10,13 @@ def passField(text:str, opt: int=0)->str:
         '0' - Makes the text overwritable using \\r.
         '1' - Creates a newline after the prompt
     """
+
+    def clear(typd):
+        __buff = ""
+        for i in range(len(text) + len(typd)):
+            __buff += " "
+        print(__buff, end="\r", flush=True)
+
     storage = []
     p = ''
     e = ''
@@ -33,8 +40,8 @@ def passField(text:str, opt: int=0)->str:
                 continue
             else:
                 storage.pop()
+                clear(e)
                 e = ''
-                print("                                             ", end='\r', flush=True)
                 for k in storage:
                     e = e + '*'
                 print(text + e, end='\r', flush=True)
@@ -43,8 +50,8 @@ def passField(text:str, opt: int=0)->str:
         if key.startswith('\\') == True:
             continue
         storage.append(key)
+        clear(e)
         e = ''
-        print("                                                            ", end='\r', flush=True)
         for d in storage:
             e = e + '*'
         print(text + e, end='\r', flush=True)
