@@ -1,0 +1,158 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.ConsoleApp\\Project-BeeML.ConsoleApp.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.ConsoleApp\\Project-BeeML.ConsoleApp.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.ConsoleApp\\Project-BeeML.ConsoleApp.csproj",
+        "projectName": "Project-BeeML.ConsoleApp",
+        "projectPath": "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.ConsoleApp\\Project-BeeML.ConsoleApp.csproj",
+        "packagesPath": "C:\\Users\\Matt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.ConsoleApp\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Matt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp2.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp2.1": {
+            "targetAlias": "netcoreapp2.1",
+            "projectReferences": {
+              "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.Model\\Project-BeeML.Model.csproj": {
+                "projectPath": "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.Model\\Project-BeeML.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp2.1": {
+          "targetAlias": "netcoreapp2.1",
+          "dependencies": {
+            "Microsoft.ML": {
+              "target": "Package",
+              "version": "[1.5.0-preview, )"
+            },
+            "Microsoft.ML.ImageAnalytics": {
+              "target": "Package",
+              "version": "[1.5.0-preview, )"
+            },
+            "Microsoft.ML.Vision": {
+              "target": "Package",
+              "version": "[1.5.0-preview, )"
+            },
+            "Microsoft.NETCore.App": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.1.0, )",
+              "autoReferenced": true
+            },
+            "SciSharp.TensorFlow.Redist": {
+              "target": "Package",
+              "version": "[1.14.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.Model\\Project-BeeML.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.Model\\Project-BeeML.Model.csproj",
+        "projectName": "Project-BeeML.Model",
+        "projectPath": "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.Model\\Project-BeeML.Model.csproj",
+        "packagesPath": "C:\\Users\\Matt\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Matt\\source\\repos\\Project-Bee\\Project-BeeML.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Matt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.0": {
+            "targetAlias": "netstandard2.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.0": {
+          "targetAlias": "netstandard2.0",
+          "dependencies": {
+            "Microsoft.ML": {
+              "target": "Package",
+              "version": "[1.5.0-preview, )"
+            },
+            "Microsoft.ML.ImageAnalytics": {
+              "target": "Package",
+              "version": "[1.5.0-preview, )"
+            },
+            "Microsoft.ML.Vision": {
+              "target": "Package",
+              "version": "[1.5.0-preview, )"
+            },
+            "NETStandard.Library": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.0.3, )",
+              "autoReferenced": true
+            },
+            "SciSharp.TensorFlow.Redist": {
+              "target": "Package",
+              "version": "[1.14.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
