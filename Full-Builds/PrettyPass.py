@@ -30,6 +30,11 @@ def passField(text:str, opt: int=0)->str:
             else:
                 if opt == 1:
                     print(text + e, flush=True)
+                else:
+                    cleaner = ""
+                    for i in (text + e):
+                        cleaner += " "
+                    print(cleaner, end="\r", flush=True)
                 break
         elif key == b' ':
             continue
