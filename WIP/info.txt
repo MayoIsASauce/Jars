@@ -1,1 +1,3 @@
 List of Unfinished Stable-Build Projects
+
+1. Gnome_Terminal - Huge WIP python-based terminal, emphasizes open source and user experience. 
