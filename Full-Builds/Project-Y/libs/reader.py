@@ -1,7 +1,7 @@
 # read each line and parse the student's data
 # save each student as a Student object
 from typing import List
-import libs.creator, array
+import libs.creator
 
 def parseStudents() -> List:
     students = []
