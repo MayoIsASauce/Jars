@@ -1,4 +1,3 @@
-from hashlib import new
 import random
 
 class _CreationOverseer:
