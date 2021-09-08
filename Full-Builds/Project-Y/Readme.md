@@ -5,7 +5,7 @@ I created this generator a while ago to test my skills in building and storing d
 
 ## Features
 
-- **generate <int>** up to 3,996 students at once to Students.csv.
+- **generate \<int>** up to 3,996 students at once to Students.csv.
 - **list** all students inside the Students.csv.
 - **make** a specific student to specifications.
 - Precise data retrieval.
