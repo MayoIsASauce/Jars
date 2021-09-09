@@ -23,7 +23,6 @@ class _Student:
                     # print("FAILED: " + self.year)
                     break
                 newID = "{0}{1}{2}{3}".format(self.year, random.randint(0, 9), random.randint(0, 9), random.randint(0, 9))
-                print(newID)
                 if (newID in triedIds) or (newID in _CreationOverseer.usedIds):
                     # print("newID in tried or in master")
                     triedIds.append(newID)
