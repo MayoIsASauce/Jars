@@ -1,19 +1,19 @@
 import random
 
 class _CreationOverseer:
-    usedIds: list = []
-    firstNames: str = ["Timothy", "John", "Marcus", "Matthew", "Todd", "Jeremy", "Lucas", "Brendan", "Colin", "Gregory", "Breanna", "Tom"]
-    lastNames: str = ["Doe", "O'Hanna", "Stevens", "Smith", "August", "Johnson", "Miller", "Jones", "Williams", "Anderson", "Lewis"]
-    years: int = [2022,2023,2024,2025]
+    firstNames : str = ["Timothy", "John", "Marcus", "Matthew", "Todd", "Jeremy", "Lucas", "Brendan", "Colin", "Gregory", "Breanna", "Tom"]
+    lastNames  : str = ["Doe", "O'Hanna", "Stevens", "Smith", "August", "Johnson", "Miller", "Jones", "Williams", "Anderson", "Lewis"]
+    usedIds    : list = []
+    years      : int = [2022,2023,2024,2025]
 
 class _Student:
     def __init__(self, Fname, Lname, Age, Year, Id = ""):
-        failed: bool = False
         self.first = Fname
-        self.last = Lname
-        self.age = Age
-        self.year = Year
+        self.last  = Lname
+        self.age   = Age
+        self.year  = Year
         if Id == "":
+            failed: bool = False
             triedIds: list = []
             while True:
                 # print("tried: " + str(len(triedIds)))
@@ -33,12 +33,6 @@ class _Student:
         self.email = "{inital}{Last}{ID}@sjvhs.com".format(inital=self.first[0].lower(), Last=self.last.lower(), ID=self.ID)
     def __str__(self) -> str:
         return "{0},{1},{2},{3},{4}\n".format(self.ID, self.last, self.first, self.age, self.email)
-    first: str
-    last: str
-    age: int
-    year: int
-    ID: str
-    email: str
 
 def create(student: _Student) -> bool:
     file = open("./res/Student_Data.csv", "at")
