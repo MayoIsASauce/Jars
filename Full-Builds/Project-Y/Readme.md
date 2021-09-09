@@ -11,6 +11,12 @@ I created this generator a while ago to test my skills in building and storing d
 - Precise data retrieval.
 - Entirely open-sourced.
 
+
+Students are stored as:
+YearID,Last,First,Age,Email
+
+EX: 2022008,Johnson,Marcus,17,mjohnson2022008@sjvhs.com
+
 ### Commands can be issued such as
 ```python
 sophmore year -> retrieve the graduating year of sophmores.
