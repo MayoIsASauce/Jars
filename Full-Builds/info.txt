@@ -3,3 +3,4 @@ List of finished programs in this folder
 1. PrettyPass.py - Python function which hides user input for password fields, then returns it sha224 encoded.
 2. 4DigitCracker.py - Program that can solve 4 digit codes fairly quickly.
 3. Project_Bee - Machine learning ai csproj that I built for bee. very rudimentary. 
+4. tic-tac-toe - Two functional algorithms play tic-tac-toe for eternity.
