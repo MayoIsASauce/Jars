@@ -1,3 +1,4 @@
 List of Unfinished Stable-Build Projects
 
 1. Gnome_Terminal - Huge WIP python-based terminal, emphasizes open source and user experience. 
+2. minecraft_ai - ai that generates minecraft worlds tailored to what the end-user prefers
