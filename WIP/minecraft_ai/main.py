@@ -17,8 +17,9 @@ class _seeds(object):
         
         return mountain_seeds
 
-    def parse_seed(self, data: str) -> List[str]:
-        return data.strip().split(",")
+    def parse_seed(self, data: str) -> seed:
+        new_data = data.strip().split(",")
+        return seed(int(new_data[1]), int(new_data[0]))
     
     def __str__(self) -> List[seed]:
         return self.seeds
@@ -31,8 +32,8 @@ with open("data/seed_table.csv", "r") as file:
 
 
     while len(buffer_data) > 1:
-        seeds.append([int(buffer_data[0]),int(buffer_data[1])])
+        seeds.seeds.append(seeds.parse_seed())
 
         buffer_data = seeds.parse_seed(file.readline())
 
-print(seeds.get_mountain_seeds(seeds))
+print(seeds.get_mountain_seeds())
