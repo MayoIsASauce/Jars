@@ -4,3 +4,4 @@ List of finished programs in this folder
 2. 4DigitCracker.py - Program that can solve 4 digit codes fairly quickly.
 3. Project_Bee - Machine learning ai csproj that I built for bee. very rudimentary. 
 4. tic-tac-toe - Two functional algorithms play tic-tac-toe for eternity.
+5. GnomeClutter.py - Takes every loose file in a directory and puts it into alphabetical folders
