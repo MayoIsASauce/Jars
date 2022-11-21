@@ -12,6 +12,7 @@ class GnomeClutter(object):
         self.loose_files = [file for file in listdir(folder) if isfile(join(folder, file))]
         self.verbose = verbose
         self.new_file_paths = []
+        self.__prepared__ = False
 
         if verbose: print(self.loose_files, len(self.loose_files), end="\n\n")
 
@@ -19,6 +20,11 @@ class GnomeClutter(object):
             if not file[0].upper() in list(self.loose_dict.keys()):
                 self.loose_dict[file[0].upper()] = []
             self.loose_dict[file[0].upper()].append(file)
+    
+    class NotPreparedException(Exception):
+        def __init__(self) -> None:
+            self.message = "organize() was called before prepare() in GnomeClutter"
+            super().__init__(self.message)
 
     def __filename_validation__(self, file, num=1):
         try:
@@ -41,10 +47,14 @@ class GnomeClutter(object):
                     print(f'Folder created: {self.folder+folder_key}', end="\n\n")
             except FileExistsError:
                 if self.verbose: print(f'Folder exists: {self.folder+folder_key}', end="\n")
-            
+        
+        self.__prepared__ = True
         return self
         
     def organize(self) -> None:
+        if not self.__prepared__:
+            raise GnomeClutter.NotPreparedException
+
         folder_DNE = []
         count: int = 0
         if self.verbose: print("")
