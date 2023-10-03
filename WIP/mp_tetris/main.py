@@ -51,24 +51,23 @@ def move_object(id:int, new_y, new_x):
         if (new_x < 23 and new_y < 9) and new_x > -1:
             sentinel = True
     elif gp == GridPiece.iPiece:
-        if (new_x < 24 and new_y < 7) and new_x > -1:
+        if (new_x < 24 and new_y < 8) and new_x > -1:
             sentinel = True
     elif gp == GridPiece.sPiece:
-        if (new_x < 23 and new_y < 9) and new_x > 0:
+        if (new_x < 23 and new_y < 10) and new_x > 0:
             sentinel = True
     elif gp == GridPiece.zPiece:
-        if (new_x < 23 and new_y < 9) and new_x > 0:
+        if (new_x < 23 and new_y < 10) and new_x > 0:
             sentinel = True
     elif gp == GridPiece.lPiece:
-        if (new_x < 23 and new_y < 8) and new_x > -1:
+        if (new_x < 23 and new_y < 9) and new_x > -1:
             sentinel = True
     elif gp == GridPiece.jPiece:
-        if (new_x < 24 and new_y < 8) and new_x > 0:
+        if (new_x < 24 and new_y < 9) and new_x > 0:
             sentinel = True
     elif gp == GridPiece.tPiece:
         if (new_x < 23 and new_y < 9) and new_x > 0:
             sentinel = True
-
 
     if sentinel:
         grid_man.editObject(gp, (xy[0],xy[1]), rot, 0)
@@ -86,14 +85,11 @@ def rot_object(id:int, new_rot:int):
 
     p_dict[id] = (gp, xy, new_rot)
 
-id = create_object(GridPiece.jPiece, (1, 0))
-id = create_object(GridPiece.oPiece, (4, 0))
-id = create_object(GridPiece.iPiece, (7, 0))
-id = create_object(GridPiece.zPiece, (10, 0))
-id = create_object(GridPiece.sPiece, (14, 0))
-id = create_object(GridPiece.tPiece, (18, 0))
-id = create_object(GridPiece.lPiece, (22, 0))
+# id = create_object(GridPiece.sPiece, (1, 0))
 
+pieces = list(GridPiece.__dict__.values())[4]
+for i in range(len(pieces)):
+    create_object(GridPiece(pieces[i]), (3*i, 0))
 
 speed = 1
 move_lock = time() + 2
@@ -135,6 +131,7 @@ while running:
             move_object(active_piece, p_dict[active_piece][1][1], p_dict[active_piece][1][0]+1)
         speed_lock = time()+move_speed
     # ---------------------
+
     # DRAWING HANDLING ----
     screen.fill((75, 70, 94))
     for y in range(len(grid_man.t_squares)):
@@ -143,6 +140,7 @@ while running:
                              pygame.Rect(columns.get(x), rows.get(y), 45, 45), border_radius=2)
     pygame.display.flip()
     # ---------------------
+
     # PHYSICS HANDLING ----
     if time() > move_lock:
         for pKey in list(p_dict.keys()):
