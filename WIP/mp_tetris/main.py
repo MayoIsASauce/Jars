@@ -1,7 +1,9 @@
 import pygame
 
 from time import time
-from classes.GridManager import GridManager, GridPiece, color_dict
+from random import randint
+
+from classes.GridManager import GridManager, GridPiece, color_dict, lowest_square, right_square, left_square
 
 pygame.init()
 
@@ -15,7 +17,7 @@ pygame.display.set_caption('SUPER COOL TETRIX')
 running = True
 
 p_sequential = 0
-p_dict: dict[tuple[GridPiece, tuple[int,int], int]] = {}
+p_dict: dict[int, tuple[GridPiece, tuple[int,int], int]] = {}
 
 columns = {}
 rows = {}
@@ -45,35 +47,22 @@ def remove_object(id:int):
 
 def move_object(id:int, new_y, new_x):
     gp, xy, rot = p_dict[id]
+    tmp = (gp, (new_x,new_y), rot)
     sentinel = False
 
-    if gp == GridPiece.oPiece:
-        if (new_x < 23 and new_y < 9) and new_x > -1:
-            sentinel = True
-    elif gp == GridPiece.iPiece:
-        if (new_x < 24 and new_y < 8) and new_x > -1:
-            sentinel = True
-    elif gp == GridPiece.sPiece:
-        if (new_x < 23 and new_y < 10) and new_x > 0:
-            sentinel = True
-    elif gp == GridPiece.zPiece:
-        if (new_x < 23 and new_y < 10) and new_x > 0:
-            sentinel = True
-    elif gp == GridPiece.lPiece:
-        if (new_x < 23 and new_y < 9) and new_x > -1:
-            sentinel = True
-    elif gp == GridPiece.jPiece:
-        if (new_x < 24 and new_y < 9) and new_x > 0:
-            sentinel = True
-    elif gp == GridPiece.tPiece:
-        if (new_x < 23 and new_y < 9) and new_x > 0:
-            sentinel = True
+    if (right_square(*tmp) < 24 and lowest_square(*tmp) < 10) and left_square(*tmp) > -1:
+        sentinel = True
+        grid_man.editObject(gp, xy, rot, 0)
+        if not grid_man.testSpace(*tmp):
+            grid_man.editObject(gp, xy, rot, 1)
+            sentinel = False
+
 
     if sentinel:
-        grid_man.editObject(gp, (xy[0],xy[1]), rot, 0)
         grid_man.editObject(gp, (new_x, new_y), rot, 1)
-
         p_dict[id] = (gp, (new_x,new_y), rot)
+
+    return sentinel
 
 def rot_object(id:int, new_rot:int):
     if new_rot > 3: new_rot = new_rot%4
@@ -81,23 +70,29 @@ def rot_object(id:int, new_rot:int):
     gp, xy, rot = p_dict[id]
 
     grid_man.editObject(gp, (xy[0],xy[1]), rot, 0)
-    grid_man.editObject(gp, (xy[0],xy[1]), new_rot, 1)
+    if grid_man.testSpace(*p_dict[id]):
+        try:
+            grid_man.editObject(gp, (xy[0],xy[1]), new_rot, 1)
+            p_dict[id] = (gp, xy, new_rot)
+        except IndexError: # leaves debris from squares before error
+            grid_man.editObject(gp, (xy[0],xy[1]), rot, 1)
+    else:
+        grid_man.editObject(gp, (xy[0],xy[1]), rot, 1)
 
-    p_dict[id] = (gp, xy, new_rot)
 
-# id = create_object(GridPiece.sPiece, (1, 0))
+objects = list(GridPiece.__dict__['_member_names_'])
 
-pieces = list(GridPiece.__dict__.values())[4]
-for i in range(len(pieces)):
-    create_object(GridPiece(pieces[i]), (3*i, 0))
+# pieces = list(GridPiece.__dict__.values())[4]
+# for i in range(len(pieces)):
+#     create_object(GridPiece(pieces[i]), (3*i, 0))
 
 speed = 1
 move_lock = time() + 2
 speed_lock = 0
 move_speed = 0.1
 
-active_piece = id
-move_side = 0 # 1 left, 0 none, 2 right
+active_piece = create_object(GridPiece(objects[randint(0, len(objects)-1)]), (1, 0))
+move_side = 0  # 1 left, 0 none, 2 right
 
 print(grid_man.__str__())
 
@@ -111,7 +106,7 @@ while running:
                 move_side = 1
             elif event.key == pygame.K_RIGHT:
                 move_side = 2
-            elif event.key == pygame.K_UP:
+            elif event.key == pygame.K_UP and active_piece != -1:
                 rot_object(active_piece, p_dict[active_piece][2]+1)
             elif event.key == pygame.K_DOWN:
                 speed = 3
@@ -124,7 +119,7 @@ while running:
             elif event.key == pygame.K_DOWN:
                 speed = 1
 
-    if move_side and time()>speed_lock:
+    if move_side and time()>speed_lock and active_piece != -1:
         if move_side == 1:
             move_object(active_piece, p_dict[active_piece][1][1], p_dict[active_piece][1][0]-1)
         else:
@@ -132,19 +127,22 @@ while running:
         speed_lock = time()+move_speed
     # ---------------------
 
+    # PHYSICS HANDLING ----
+    if time() > move_lock and active_piece != -1:
+        b = move_object(active_piece, p_dict[active_piece][1][1]+1, p_dict[active_piece][1][0])
+        if not b:
+            active_piece = create_object(GridPiece(objects[randint(0, len(objects)-1)]), (1, 0))
+            # active_piece = -1
+        move_lock = time()+(1/speed)
+    # ---------------------
+
     # DRAWING HANDLING ----
     screen.fill((75, 70, 94))
     for y in range(len(grid_man.t_squares)):
         for x in range(len(grid_man.t_squares[y])):
-            pygame.draw.rect(screen, color_dict.get(grid_man.t_squares[y][x]), 
+            pygame.draw.rect(screen, color_dict.get(grid_man.t_squares[y][x]),
                              pygame.Rect(columns.get(x), rows.get(y), 45, 45), border_radius=2)
     pygame.display.flip()
     # ---------------------
-
-    # PHYSICS HANDLING ----
-    if time() > move_lock:
-        for pKey in list(p_dict.keys()):
-            move_object(pKey, p_dict[pKey][1][1]+1, p_dict[pKey][1][0])
-        move_lock = time()+(1/speed)
 
 pygame.quit()
