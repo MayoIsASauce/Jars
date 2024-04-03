@@ -5,7 +5,7 @@ import pygame
 
 if not pygame.get_init():
     sys.stderr.write("Error, pygame not initialized before board imported!\n")
-GLOBAL_FONT = pygame.font.SysFont('ComicSansMS', 25)
+GLOBAL_FONT = pygame.font.SysFont('DroidSerif', 50)
 
 def get_size(board: list[list[int]]):
     return len(board[0]), len(board)
@@ -46,7 +46,6 @@ def board_set(board: list[list[int]], xy: tuple[int, int]) -> bool:
                         board_set(board, (xy[0]+x, xy[1]+y))
                     except IndexError:
                         pass
-
         return True
     else:
         if board[xy[1]][xy[0]] == 3:
@@ -78,12 +77,19 @@ def bomb_check(board: list[list[int]], xy: tuple[int, int]):
 def set_overlay(window: pygame.Surface, board: list[list[int]]):
     global GLOBAL_FONT
     wh = get_size(board)
-
+    colors = {
+        1: (255, 253, 122),
+        2: (255, 164, 79),
+        3: (255, 100, 79),
+        4: (255, 100, 79),
+        5: (255, 100, 79),
+        6: (97, 45, 42)
+    }
     for y in range(wh[1]):
         for x in range(wh[0]):
             if board[y][x] == 2:
                 if (bombs := bomb_check(board, (x,y))) > 0:
-                    window.blit(GLOBAL_FONT.render(str(bombs), True, (255,255,255)), ((51*x)+15, (51*y)+10))
+                    window.blit(GLOBAL_FONT.render(str(bombs), True, colors.get(bombs, (97, 45, 42))), ((51*x)+15, (51*y)+10))
 
 def draw_board(window: pygame.Surface, board: list[list[int]]):
     size = get_size(board)
@@ -97,7 +103,15 @@ def draw_board(window: pygame.Surface, board: list[list[int]]):
     }
     for r in range(size[1]):
         for c in range(size[0]):
-            pygame.draw.rect(window, colors.get(board_fetch(board, (c, r))), [51*c, 51*r, 50, 50])
+            color = None
+            if (bf := board_fetch(board, (c, r))) in [0, 1] and (c+r) % 2 == 0:
+                color = colors.get(board_fetch(board, (c, r)))
+            elif bf in [0, 1]:
+                color = (160, 222, 137)
+            else:
+                color = colors.get(board_fetch(board, (c, r)))
+
+            pygame.draw.rect(window, color, [51*c, 51*r, 50, 50])
     
     set_overlay(window, board)
 

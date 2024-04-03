@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 pygame.mixer.init()
 
-from segments.board import create_board, draw_board, board_set, board_flag, check_win
+from segments.board import create_board, draw_board, board_set, board_flag, check_win, print_board
 from time import sleep
 
 
@@ -21,7 +21,7 @@ pygame.display.set_icon(pygame.image.load("assets/icon.png"))
 def loop(difficulty: int):
     flag_win = False
     board = create_board(WIDTH, HEIGHT, difficulty)
-
+    
     running = True
     while running:
         for event in pygame.event.get():
