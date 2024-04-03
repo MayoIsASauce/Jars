@@ -13,6 +13,7 @@ window_width = 305
 window_height = 408
 window = pygame.display.set_mode((window_width, window_height))
 pygame.display.set_caption("Mine Sweeper")
+pygame.display.set_icon(pygame.image.load("assets/icon.png"))
 
 # Game loop
 def loop(difficulty: int):
