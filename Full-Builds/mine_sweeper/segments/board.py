@@ -90,7 +90,7 @@ def draw_board(window: pygame.Surface, board: list[list[int]]):
 
     colors = {
         0: (204, 221, 183),
-        1: (255, 94, 91), # <- change to: (255, 94, 91) [CHEATS]
+        1: (204, 221, 183), # <- change to: (255, 94, 91) [CHEATS]
         2: (106, 91, 110),
         3: (190, 178, 200),
         4: (190, 178, 200)
