@@ -1,17 +1,19 @@
 import pygame
 pygame.init()
+pygame.mixer.init()
 
-from segments.board import create_board, print_board, draw_board, board_set, board_flag, check_win
-from playsound import playsound
+from segments.board import create_board, draw_board, board_set, board_flag, check_win
+from time import sleep
 
-# .section macros
+
 WIDTH = 6
 HEIGHT = 8
-# .end
 
 window_width = 305
 window_height = 408
+
 window = pygame.display.set_mode((window_width, window_height))
+
 pygame.display.set_caption("Mine Sweeper")
 pygame.display.set_icon(pygame.image.load("assets/icon.png"))
 
@@ -43,5 +45,9 @@ def loop(difficulty: int):
 
         running = not (flag_win := check_win(board)) if running else False
 
-    if flag_win: playsound("assets/cheer.mp3")
+    if flag_win:
+        sound = pygame.mixer.Sound("assets/cheer.mp3")
+        sound.set_volume(0.2)
+        sound.play()
+        sleep(3.6)
     pygame.quit()
