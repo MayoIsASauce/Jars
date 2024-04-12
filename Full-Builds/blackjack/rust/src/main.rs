@@ -7,12 +7,6 @@ mod python;
 mod utils;
 mod definitions;
 
-#[derive(Debug, Deserialize, Serialize)]
-struct Sentence_t {
-    sentence: String,
-    word_count: u16,
-    letter_count: u16
-}
 
 fn main() {
     let mut child = python::start_python();
