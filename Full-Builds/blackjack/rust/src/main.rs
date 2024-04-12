@@ -1,43 +1,49 @@
+use serde_json::from_str;
+use serde::{Deserialize, Serialize};
+
+use crate::{definitions::drawable_t, definitions::event_t, python::{recv_python, send_python}};
+
 mod python;
 mod utils;
 mod definitions;
 
-use std::{thread::sleep, time::Duration};
-
-use definitions::{Objects, GameObject};
-
+#[derive(Debug, Deserialize, Serialize)]
+struct Sentence_t {
+    sentence: String,
+    word_count: u16,
+    letter_count: u16
+}
 
 fn main() {
-    let mut objs = Objects {
-        background: "255, 0, 0".to_string(),
-        player: GameObject {
-            x: 20,
-            y: 20,
-            w: 50,
-            h: 50,
-            color: (0, 255, 0),
-        }
-    };
-
-
-    // starts
     let mut child = python::start_python();
-    
-    // interact
-    let running: bool = true;
-    while running {
-        sleep(Duration::from_millis(50));
-        objs.player.x += 5;
-        objs.player.y += 5;
-        let ser = serde_json::to_string(&objs).expect("Failed to serialize object");
-        if python::send_python(&mut child, ser).is_err() {
-            break;
-        }
-    }
-    // ...
 
-    // wait for python to end
-    let _ = python::send_python(&mut child, "-1!".to_string());
+    let _ = send_python(&mut child, "800, 600".to_string());
+
+    let player = drawable_t {xy: (20f32, 20f32), size: (50f32, 50f32), 
+                                        color: (255, 0, 0)};
+
+    loop {
+        let mut closing: bool = false;
+    
+        let c = recv_python(&mut child);
+        if c.is_ok() {
+            let data = c.unwrap();
+
+            let events: Vec<event_t> = serde_json::from_str(&data).expect("failed to deserialize");
+            for event in events {
+                if event.name == 256 {
+                    println!("got end signal");
+                    closing = true;
+                    break;
+                }
+                println!("{}", event.name);
+            }
+        }
+
+        let _ = send_python(&mut child, serde_json::to_string(&player).expect("couldnt serialize"));
+        if closing == true { break; }
+    }
+
     let e_code = child.wait().unwrap();
-    println!("{}", e_code.to_string());
+    println!("\n{}", e_code.to_string());
 }

@@ -1,48 +1,31 @@
-import pygame, sys, json
+from definitions import *
+from json import loads, dumps
+from time import sleep
+from initial import init_window
 
-pygame.init()
+import pygame
+from pygame import Rect
 
-screen_width = 800
-screen_height = 600
-screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption("Blackjack")
-
-def read_pipe() -> str:
-    returnable = ""
-    while True:
-        c = sys.stdin.read(1)
-        if str(c) == "\n": break
-        else:
-            returnable += c
-        sys.stdin.flush
-    return returnable
-
-data = read_pipe()
-object_ = json.loads(data)
-
-background = tuple(map(int, object_['background'].split(", ")))
-player = object_['player']
+screen = init_window(pygame, tuple(map(int, read_pipe().split(", "))))
 
 running = True
 while running:
+    buffer = []
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
+        buffer.append(dumps(event_t(event.type, event.dict).__dict__))
+    write_pipe(str(buffer).replace('\'', ""))
 
-    screen.fill(background)
+    screen.fill((255, 255, 255))
 
-    data = read_pipe()
-    if str(data) == "-1!":
-        running = False
-    else:
-        object_ = json.loads(data)
-        player = object_['player']
+    data = drawable_f(loads(read_pipe()))
 
-    pygame.draw.rect(screen, tuple(player['color']),    
-                     pygame.Rect(player['x'], player['y'], player['w'], player['h'])
-    )
+    pygame.draw.rect(screen, data.color, Rect(*data.xy, *data.size))
+
+    # Game logic and rendering goes here
 
     pygame.display.flip()
 
-# Quit Pygame
 pygame.quit()
+close()
