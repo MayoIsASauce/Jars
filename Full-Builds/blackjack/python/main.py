@@ -23,8 +23,6 @@ while running:
 
     pygame.draw.rect(screen, data.color, Rect(*data.xy, *data.size))
 
-    # Game logic and rendering goes here
-
     pygame.display.flip()
 
 pygame.quit()
